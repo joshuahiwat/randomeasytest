@@ -68,7 +68,7 @@ foreach ($people as $person) {
         }
     }
     $result = call_user_func_array('array_merge', $array);
-    asort($person);
+    ksort($person);
     $extra = array_merge($result, $person);
     print_r(json_encode($extra,true));
 }
