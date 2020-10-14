@@ -58,41 +58,17 @@ $people = [
     ],
 ];
 
+echo '<pre>';
 foreach ($people as $person) {
     foreach ($sortKeys as $key) {
         $array[] = [$key => $person[$key]];
-//        if(!isset($person[$key])) {
-//            $array[] = $people;
-//        }
+        if(isset($person[$key]))
+        {
+            unset($person[$key]);
+        }
     }
     $result = call_user_func_array('array_merge', $array);
-    print_r(json_encode($result,true));
+    asort($person);
+    $extra = array_merge($result, $person);
+    print_r(json_encode($extra,true));
 }
-
-
-
-//$array = [];
-//foreach ($people as $person) {
-//    $array[] = [
-//        'name' => $person['name'],
-//        'street' => $person['street'],
-//        'house_number' => $person['house_number'],
-//        'city' => $person['city'],
-//        'phone' => $person['phone'],
-//        ];
-//    foreach ($extra as $rest) {
-//        if(isset($person[$rest])) {
-//            $restArray[] = [
-//                'bsn' => $person['bsn'],
-//                'gender' => $person['gender'],
-//                'iban' => $person['iban'],
-//                'age' => $person['age'],
-//            ];
-//        }else{
-//            unset($person[$rest]);
-//        }
-//    }
-//}
-//$result = array_merge($array, $restArray);
-//echo '<pre>';
-//print_r(json_encode($result,true));
