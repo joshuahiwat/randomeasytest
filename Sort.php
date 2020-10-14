@@ -2,11 +2,13 @@
 
 //require_once('data.php');
 
-$extra = [
-    'bsn',
-    'gender',
-    'iban',
-    'age',
+$sortKeys = [
+    'name',
+    'street',
+    'house_number',
+    'postcode',
+    'city',
+    'phone',
 ];
 
 $people = [
@@ -56,28 +58,41 @@ $people = [
     ],
 ];
 
-$array = [];
 foreach ($people as $person) {
-    $array[] = [
-        'name' => $person['name'],
-        'street' => $person['street'],
-        'house_number' => $person['house_number'],
-        'city' => $person['city'],
-        'phone' => $person['phone'],
-        ];
-    foreach ($extra as $rest) {
-        if(isset($person[$rest])) {
-            $restArray[] = [
-                'bsn' => $person['bsn'],
-                'gender' => $person['gender'],
-                'iban' => $person['iban'],
-                'age' => $person['age'],
-            ];
-        }else{
-            unset($person[$rest]);
-        }
+    foreach ($sortKeys as $key) {
+        $array[] = [$key => $person[$key]];
+//        if(!isset($person[$key])) {
+//            $array[] = $people;
+//        }
     }
+    $result = call_user_func_array('array_merge', $array);
+    print_r(json_encode($result,true));
 }
-$result = array_merge($array, $restArray);
-echo '<pre>';
-print_r(json_encode($result,true));
+
+
+
+//$array = [];
+//foreach ($people as $person) {
+//    $array[] = [
+//        'name' => $person['name'],
+//        'street' => $person['street'],
+//        'house_number' => $person['house_number'],
+//        'city' => $person['city'],
+//        'phone' => $person['phone'],
+//        ];
+//    foreach ($extra as $rest) {
+//        if(isset($person[$rest])) {
+//            $restArray[] = [
+//                'bsn' => $person['bsn'],
+//                'gender' => $person['gender'],
+//                'iban' => $person['iban'],
+//                'age' => $person['age'],
+//            ];
+//        }else{
+//            unset($person[$rest]);
+//        }
+//    }
+//}
+//$result = array_merge($array, $restArray);
+//echo '<pre>';
+//print_r(json_encode($result,true));
